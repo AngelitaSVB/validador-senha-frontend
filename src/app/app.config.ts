@@ -1,9 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { ValidadorSenhaComponent } from './components/validador-senha/validador-senha.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection(),
-    
+    provideHttpClient(),
+    provideRouter([
+      { path: '', component: ValidadorSenhaComponent }
+    ])
   ]
 };

@@ -1,0 +1,52 @@
+<!-- Cabeçalho estilo Itaú --> 
+<header class="itau-header">
+  <img src="assets/itau-favicon.svg" alt="Logo Itaú" class="logo-itau" />
+
+  <button class="cabecalho-acessar-btn" (click)="mostrarValidador = true">
+    Acessar
+  </button>
+</header>
+
+<!-- Validador de senha exibido após clicar no botão -->
+<div *ngIf="mostrarValidador" class="password-validator-container">
+  <h2 class="titulo-validador">Digite sua senha para validar</h2>
+
+  <div class="input-group">
+    <input
+      [type]="mostrarSenha ? 'text' : 'password'"
+      [(ngModel)]="senha"
+      (ngModelChange)="onSenhaChange()"
+      placeholder="Sua senha segura"
+      id="password-input"
+    />
+    <button
+      type="button"
+      class="show-password-toggle"
+      (click)="toggleMostrarSenha()"
+      [attr.aria-label]="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'"
+    >
+      <i class="bi" [ngClass]="mostrarSenha ? 'bi-eye-slash' : 'bi-eye'"></i>
+    </button>
+  </div>
+
+  <ul class="password-requirements" id="password-requirements">
+    <li [class.valid]="temTamanhoMinimo()" [class.invalid]="!temTamanhoMinimo()">Mínimo de 9 caracteres</li>
+    <li [class.valid]="temDigito()" [class.invalid]="!temDigito()">Inclua pelo menos 1 número</li>
+    <li [class.valid]="temMinuscula()" [class.invalid]="!temMinuscula()">Use letras minúsculas</li>
+    <li [class.valid]="temMaiuscula()" [class.invalid]="!temMaiuscula()">Use letras maiúsculas</li>
+    <li [class.valid]="temEspecial()" [class.invalid]="!temEspecial()">Adicione caractere especial (!@#$%^&*()-+)</li>
+    <li [class.valid]="semCaracteresRepetidos()" [class.invalid]="!semCaracteresRepetidos()">Evite repetir caracteres</li>
+  </ul>
+
+  <button id="submit-btn" [disabled]="!senhaValida" (click)="validarSenha()">Validar senha</button>
+
+  <!-- Mensagem de sucesso -->
+  <p *ngIf="validou && senha === senhaValidada" style="color: #00c853; text-align: center; margin-top: 10px;">
+  Tudo certo! Sua senha foi validada.
+</p>
+
+  <!-- Mensagem de erro -->
+  <p *ngIf="mensagemErro" style="color: red; text-align: center; margin-top: 10px;">
+    {{ mensagemErro }}
+  </p>
+</div>
