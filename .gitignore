@@ -53,8 +53,8 @@ logs/
 .sass-cache/
 
 # Environment files (se contiverem segredos)
-src/environments/environment.ts
-src/environments/environment.prod.ts
+# src/environments/environment.ts
+# src/environments/environment.prod.ts
 
 # Coverage reports
 /coverage/
