@@ -2,13 +2,13 @@ provider "aws" {
   region = "sa-east-1"
 }
 
-resource "aws_s3_bucket" "frontend_bucket" {
+# Consulta o bucket já existente em sua conta
+data "aws_s3_bucket" "frontend_bucket" {
   bucket = var.bucket_name
-  force_destroy = true
 }
 
 resource "aws_s3_bucket_website_configuration" "frontend_site" {
-  bucket = aws_s3_bucket.frontend_bucket.id
+  bucket = data.aws_s3_bucket.frontend_bucket.id
 
   index_document {
     suffix = "index.html"
@@ -20,7 +20,7 @@ resource "aws_s3_bucket_website_configuration" "frontend_site" {
 }
 
 resource "aws_s3_bucket_public_access_block" "frontend_access" {
-  bucket = aws_s3_bucket.frontend_bucket.id
+  bucket = data.aws_s3_bucket.frontend_bucket.id
 
   block_public_acls       = false
   block_public_policy     = false
@@ -29,7 +29,7 @@ resource "aws_s3_bucket_public_access_block" "frontend_access" {
 }
 
 resource "aws_s3_bucket_policy" "frontend_policy" {
-  bucket = aws_s3_bucket.frontend_bucket.id
+  bucket = data.aws_s3_bucket.frontend_bucket.id
 
   policy = jsonencode({
     Version = "2012-10-17",
@@ -39,12 +39,12 @@ resource "aws_s3_bucket_policy" "frontend_policy" {
         Effect = "Allow",
         Principal = "*",
         Action = ["s3:GetObject"],
-        Resource = ["${aws_s3_bucket.frontend_bucket.arn}/*"]
+        Resource = ["${data.aws_s3_bucket.frontend_bucket.arn}/*"]
       }
     ]
   })
 }
 
 output "frontend_url" {
-  value = "http://${aws_s3_bucket.frontend_bucket.bucket}.s3-website-sa-east-1.amazonaws.com"
+  value = "http://${data.aws_s3_bucket.frontend_bucket.bucket}.s3-website-sa-east-1.amazonaws.com"
 }
