@@ -28,7 +28,7 @@ jobs:
 
       - name: Terraform Init e Apply (cria o bucket)
         run: |
-          cd terraform/frontend
+          cd terraform/
           terraform init
           terraform apply -auto-approve -var="bucket_name=${{ secrets.S3_BUCKET }}"
 
