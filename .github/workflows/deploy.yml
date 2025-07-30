@@ -43,6 +43,9 @@ jobs:
       - name: Build do Angular
         run: npm run build
 
+      - name: Build com configuração DEV
+        run: npm run build --configuration=dev
+
       - name: Upload dos arquivos Angular para o S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
