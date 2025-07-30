@@ -46,7 +46,7 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ],
-              "outputPath": "dist/validador-senha-frontend/browser"
+              "outputPath": "dist/browser"
             }
           },
           "defaultConfiguration": "dev"
