@@ -26,7 +26,7 @@ jobs:
         with:
           terraform_version: 1.5.2
 
-      - name: Terraform Init e Apply (cria o bucket)
+      - name: Terraform Init e Apply (cria o bucket e configura site)
         run: |
           cd terraform/
           terraform init
@@ -38,9 +38,9 @@ jobs:
           node-version: 20.19.0
 
       - name: Instalar dependências do Angular
-        run: npm install
+        run: npm ci
 
-      - name: Build com configuração DEV
+      - name: Build do Angular com configuração DEV
         run: npm run build --configuration=dev
 
       - name: Upload dos arquivos Angular para o S3
@@ -52,4 +52,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: sa-east-1
-          SOURCE_DIR: dist/validador-dev-placeholder
+          SOURCE_DIR: dist/browser
