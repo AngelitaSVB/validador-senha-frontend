@@ -40,9 +40,6 @@ jobs:
       - name: Instalar dependências do Angular
         run: npm install
 
-      - name: Build do Angular
-        run: npm run build
-
       - name: Build com configuração DEV
         run: npm run build --configuration=dev
 
@@ -55,4 +52,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: sa-east-1
-          SOURCE_DIR: dist/validador-senha-frontend/browser
+          SOURCE_DIR: dist/dev
