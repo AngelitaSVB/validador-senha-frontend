@@ -37,7 +37,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputPath": "dist/production"
+              "outputPath": "dist/browser"
             },
             "dev": {
               "fileReplacements": [
