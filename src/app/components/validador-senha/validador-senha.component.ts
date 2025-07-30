@@ -25,55 +25,51 @@ export class ValidadorSenhaComponent {
   }
 
   validarSenha() {
-  this.senhaService.validar(this.senha).subscribe({
-    next: () => {
-      this.validou = true;
-      this.senhaValidada = this.senha; // armazena a senha validada
-      this.mensagemErro = '';
-    },
-    error: (err) => {
-      this.validou = false;
-      this.mensagemErro = 'Erro ao validar a senha. Verifique os critérios.';
-      console.error(err);
-    }
-  });
-}
+    this.senhaService.validar(this.senha).subscribe({
+      next: () => {
+        this.validou = true;
+        this.senhaValidada = this.senha;
+        this.mensagemErro = '';
+      },
+      error: (err) => {
+        this.validou = false;
+        this.mensagemErro = 'Erro ao validar a senha. Verifique os critérios.';
+        console.error(err);
+      }
+    });
+  }
 
   onSenhaChange() {
-  if (this.senha !== this.senhaValidada) {
-    this.validou = false;
+    if (this.senha !== this.senhaValidada) {
+      this.validou = false;
+    }
+    this.mensagemErro = '';
   }
-  this.mensagemErro = '';
-}
 
-  // Regras visuais (apenas para UI)
   temTamanhoMinimo(): boolean {
-  return this.senha.length > 0 && this.senha.length >= 9;
-}
+    return this.senha.length >= 9;
+  }
 
-temDigito(): boolean {
-  return this.senha.length > 0 && /[0-9]/.test(this.senha);
-}
+  temDigito(): boolean {
+    return /\d/.test(this.senha);
+  }
 
-temMinuscula(): boolean {
-  return this.senha.length > 0 && /[a-z]/.test(this.senha);
-}
+  temMinuscula(): boolean {
+    return /[a-z]/.test(this.senha);
+  }
 
-temMaiuscula(): boolean {
-  return this.senha.length > 0 && /[A-Z]/.test(this.senha);
-}
+  temMaiuscula(): boolean {
+    return /[A-Z]/.test(this.senha);
+  }
 
-temEspecial(): boolean {
-  return this.senha.length > 0 && /[!@#$%^&*()\-+]/.test(this.senha);
-}
+  temEspecial(): boolean {
+    return /[!@#$%^&*()\-+]/.test(this.senha);
+  }
 
-semCaracteresRepetidos(): boolean {
-  if (this.senha.length === 0) return false; // adiciona verificação
-  const caracteres = this.senha.split('');
-  const conjunto = new Set(caracteres);
-  return conjunto.size === caracteres.length;
-}
-
+  semCaracteresRepetidos(): boolean {
+    const chars = this.senha.split('');
+    return new Set(chars).size === chars.length;
+  }
 
   get senhaValida(): boolean {
     return (
