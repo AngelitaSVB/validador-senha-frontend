@@ -37,7 +37,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputPath": "dist/browser"
+              "outputPath": "dist/validador-senha-frontend"
             },
             "dev": {
               "fileReplacements": [
@@ -46,7 +46,7 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ],
-              "outputPath": "dist/browser"
+              "outputPath": "dist/validador-senha-frontend"
             }
           },
           "defaultConfiguration": "dev"
