@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.dev';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { Observable, switchMap } from 'rxjs';
 
@@ -15,7 +15,8 @@ export class SenhaService {
     return this.authService.getToken().pipe(
       switchMap(token => {
         const headers = new HttpHeaders({
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         });
 
         return this.http.post(`${environment.apiUrl}/api/validar`, { senha }, { headers });

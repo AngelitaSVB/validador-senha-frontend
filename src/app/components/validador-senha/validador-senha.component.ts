@@ -14,9 +14,9 @@ export class ValidadorSenhaComponent {
   senha: string = '';
   mostrarSenha: boolean = false;
   validou: boolean = false;
-  mostrarValidador: boolean = false;
-  mensagemErro: string = '';
+  mensagens: string[] = [];
   senhaValidada: string = '';
+  mostrarValidador: boolean = false;
 
   constructor(private senhaService: SenhaService) {}
 
@@ -26,14 +26,19 @@ export class ValidadorSenhaComponent {
 
   validarSenha() {
     this.senhaService.validar(this.senha).subscribe({
-      next: () => {
-        this.validou = true;
+      next: (res) => {
+        this.validou = res.valido;
+        this.mensagens = res.motivos;
         this.senhaValidada = this.senha;
-        this.mensagemErro = '';
+
+
+        if (this.validou) {
+          this.mensagens = ['Senha válida com sucesso!'];
+        }
       },
       error: (err) => {
         this.validou = false;
-        this.mensagemErro = 'Erro ao validar a senha. Verifique os critérios.';
+        this.mensagens = ['Erro ao validar a senha.'];
         console.error(err);
       }
     });
@@ -42,43 +47,36 @@ export class ValidadorSenhaComponent {
   onSenhaChange() {
     if (this.senha !== this.senhaValidada) {
       this.validou = false;
+      this.mensagens = [];
     }
-    this.mensagemErro = '';
   }
 
-  temTamanhoMinimo(): boolean {
+  // Validações visuais auxiliares:
+  tamanhoMinimo() {
     return this.senha.length >= 9;
   }
 
-  temDigito(): boolean {
-    return /\d/.test(this.senha);
-  }
-
-  temMinuscula(): boolean {
-    return /[a-z]/.test(this.senha);
-  }
-
-  temMaiuscula(): boolean {
+  temMaiuscula() {
     return /[A-Z]/.test(this.senha);
   }
 
-  temEspecial(): boolean {
+  temMinuscula() {
+    return /[a-z]/.test(this.senha);
+  }
+
+  temNumero() {
+    return /\d/.test(this.senha);
+  }
+
+  temEspecial() {
     return /[!@#$%^&*()\-+]/.test(this.senha);
   }
 
-  semCaracteresRepetidos(): boolean {
-    const chars = this.senha.split('');
-    return new Set(chars).size === chars.length;
-  }
+  semRepetidos(): boolean {
+    if (!this.senha || this.senha.trim().length === 0) return false;
 
-  get senhaValida(): boolean {
-    return (
-      this.temTamanhoMinimo() &&
-      this.temDigito() &&
-      this.temMinuscula() &&
-      this.temMaiuscula() &&
-      this.temEspecial() &&
-      this.semCaracteresRepetidos()
-    );
+    const caracteres = this.senha.split('');
+    const unicos = new Set(caracteres);
+    return unicos.size === caracteres.length;
   }
 }

@@ -31,15 +31,6 @@
             ]
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputPath": "dist/validador-senha-frontend"
-            },
             "dev": {
               "fileReplacements": [
                 {
@@ -57,9 +48,6 @@
           "configurations": {
             "dev": {
               "buildTarget": "validador-senha-frontend:build:dev"
-            },
-            "production": {
-              "buildTarget": "validador-senha-frontend:build:production"
             }
           },
           "defaultConfiguration": "dev"

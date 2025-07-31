@@ -1,23 +1,37 @@
-<!-- Cabeçalho estilo Itaú -->
 <header class="itau-header">
   <img src="assets/itau-favicon.svg" alt="Logo Itaú" class="logo-itau" />
-
-  <button class="cabecalho-acessar-btn" (click)="mostrarValidador = true">
-    Acessar
-  </button>
+  <button class="cabecalho-acessar-btn" (click)="mostrarValidador = true">Acessar</button>
 </header>
 
-<!-- Validador de senha exibido após clicar no botão -->
-<div *ngIf="mostrarValidador" class="password-validator-container">
+<!-- TELA INICIAL COM A IMAGEM E TEXTO EXPLICATIVO -->
+<section class="tela-inicial" *ngIf="!mostrarValidador">
+  <div class="conteudo-inicial">
+    <img src="assets/imagem.png" alt="Pessoa validando senha" class="imagem-explicativa" />
+    
+    <div class="texto-explicativo">
+      <h2 class="titulo-explicativo">O que é validar senha?</h2>
+      <p>
+        Validar uma senha é garantir que ela siga critérios de segurança como tamanho mínimo,
+        letras maiúsculas e minúsculas, números e caracteres especiais.
+        <br />
+        <span class="alerta-fraude">Isso protege você contra fraudes.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TELA DE VALIDAÇÃO -->
+<main *ngIf="mostrarValidador" class="password-validator-container">
   <h2 class="titulo-validador">Digite sua senha para validar</h2>
 
-  <div class="input-group">
+  <section class="input-group">
     <input
+      id="password-input"
       [type]="mostrarSenha ? 'text' : 'password'"
       [(ngModel)]="senha"
       (ngModelChange)="onSenhaChange()"
       placeholder="Sua senha segura"
-      id="password-input"
+      aria-label="Campo de senha"
     />
     <button
       type="button"
@@ -27,26 +41,36 @@
     >
       <i class="bi" [ngClass]="mostrarSenha ? 'bi-eye-slash' : 'bi-eye'"></i>
     </button>
-  </div>
+  </section>
 
-  <ul class="password-requirements" id="password-requirements">
-    <li [class.valid]="temTamanhoMinimo()" [class.invalid]="!temTamanhoMinimo()">Mínimo de 9 caracteres</li>
-    <li [class.valid]="temDigito()" [class.invalid]="!temDigito()">Inclua pelo menos 1 número</li>
-    <li [class.valid]="temMinuscula()" [class.invalid]="!temMinuscula()">Use letras minúsculas</li>
-    <li [class.valid]="temMaiuscula()" [class.invalid]="!temMaiuscula()">Use letras maiúsculas</li>
-    <li [class.valid]="temEspecial()" [class.invalid]="!temEspecial()">Adicione caractere especial (!@#$%^&*()-+)</li>
-    <li [class.valid]="semCaracteresRepetidos()" [class.invalid]="!semCaracteresRepetidos()">Evite repetir caracteres</li>
+  <ul class="password-requirements">
+    <li [class.valid]="tamanhoMinimo()" [class.invalid]="!tamanhoMinimo()">Mínimo de 9 caracteres</li>
+    <li [class.valid]="temMaiuscula()" [class.invalid]="!temMaiuscula()">Letra maiúscula</li>
+    <li [class.valid]="temMinuscula()" [class.invalid]="!temMinuscula()">Letra minúscula</li>
+    <li [class.valid]="temNumero()" [class.invalid]="!temNumero()">Número</li>
+    <li [class.valid]="temEspecial()" [class.invalid]="!temEspecial()">Caractere especial (!@#$...)</li>
+    <li [class.valid]="semRepetidos()" [class.invalid]="!semRepetidos()">Sem caracteres repetidos</li>
   </ul>
 
-  <button id="submit-btn" [disabled]="!senhaValida" (click)="validarSenha()">Validar senha</button>
-
-  <!-- Mensagem de sucesso -->
-  <p *ngIf="validou && senha === senhaValidada" style="color: #00c853; text-align: center; margin-top: 10px;">
-  Tudo certo! Sua senha foi validada.
-</p>
-
-  <!-- Mensagem de erro -->
-  <p *ngIf="mensagemErro" style="color: red; text-align: center; margin-top: 10px;">
-    {{ mensagemErro }}
+  <p class="aviso-validacao">
+    * A validação será confirmada ao clicar no botão “Validar senha”.
   </p>
-</div>
+
+  <button
+    id="submit-btn"
+    [disabled]="!senha"
+    (click)="validarSenha()"
+    class="btn-validar"
+    aria-label="Botão para validar a senha"
+  >
+    Validar senha
+  </button>
+
+  <div
+    class="mensagens-backend"
+    *ngIf="mensagens.length > 0"
+    [ngClass]="{ 'mensagem-sucesso': validou, 'mensagem-erro': !validou }"
+  >
+    <p *ngFor="let msg of mensagens" class="mensagem-backend">{{ msg }}</p>
+  </div>
+</main>
