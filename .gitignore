@@ -1,15 +1,33 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# ========================================
+# Angular + Node.js + VSCode Git Ignore
+# ========================================
 
 # Compiled output
 /dist
+/dist/*
 /tmp
 /out-tsc
 /bazel-out
 
-# Node
+# Node dependencies
 /node_modules
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compiled source #
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Logs
+*.log
+log/
+logs/
+*.tsbuildinfo
 
 # IDEs and editors
 .idea/
@@ -26,17 +44,34 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
+# Angular cache
+.angular/cache/
+.angular/cache
+
+# Sass cache
 .sass-cache/
-/connect.lock
-/coverage
+
+# Environment files (se contiverem segredos)
+# src/environments/environment.ts
+# src/environments/environment.prod.ts
+
+# Coverage reports
+/coverage/
+
+# Test logs
 /libpeerconnection.log
 testem.log
+
+# Typings
 /typings
 
-# System files
+# History plugin
+.history/
+
+# OS files
 .DS_Store
 Thumbs.db
+
+# Others
+/connect.lock

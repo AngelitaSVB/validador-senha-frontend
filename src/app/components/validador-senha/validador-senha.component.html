@@ -1,0 +1,76 @@
+<header class="itau-header">
+  <img src="assets/itau-favicon.svg" alt="Logo Itaú" class="logo-itau" />
+  <button class="cabecalho-acessar-btn" (click)="mostrarValidador = true">Acessar</button>
+</header>
+
+<!-- TELA INICIAL COM A IMAGEM E TEXTO EXPLICATIVO -->
+<section class="tela-inicial" *ngIf="!mostrarValidador">
+  <div class="conteudo-inicial">
+    <img src="assets/imagem.png" alt="Pessoa validando senha" class="imagem-explicativa" />
+    
+    <div class="texto-explicativo">
+      <h2 class="titulo-explicativo">O que é validar senha?</h2>
+      <p>
+        Validar uma senha é garantir que ela siga critérios de segurança como tamanho mínimo,
+        letras maiúsculas e minúsculas, números e caracteres especiais.
+        <br />
+        <span class="alerta-fraude">Isso protege você contra fraudes.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- TELA DE VALIDAÇÃO -->
+<main *ngIf="mostrarValidador" class="password-validator-container">
+  <h2 class="titulo-validador">Digite sua senha para validar</h2>
+
+  <section class="input-group">
+    <input
+      id="password-input"
+      [type]="mostrarSenha ? 'text' : 'password'"
+      [(ngModel)]="senha"
+      (ngModelChange)="onSenhaChange()"
+      placeholder="Sua senha segura"
+      aria-label="Campo de senha"
+    />
+    <button
+      type="button"
+      class="show-password-toggle"
+      (click)="toggleMostrarSenha()"
+      [attr.aria-label]="mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'"
+    >
+      <i class="bi" [ngClass]="mostrarSenha ? 'bi-eye-slash' : 'bi-eye'"></i>
+    </button>
+  </section>
+
+  <ul class="password-requirements">
+    <li [class.valid]="tamanhoMinimo()" [class.invalid]="!tamanhoMinimo()">Mínimo de 9 caracteres</li>
+    <li [class.valid]="temMaiuscula()" [class.invalid]="!temMaiuscula()">Letra maiúscula</li>
+    <li [class.valid]="temMinuscula()" [class.invalid]="!temMinuscula()">Letra minúscula</li>
+    <li [class.valid]="temNumero()" [class.invalid]="!temNumero()">Número</li>
+    <li [class.valid]="temEspecial()" [class.invalid]="!temEspecial()">Caractere especial (!@#$...)</li>
+    <li [class.valid]="semRepetidos()" [class.invalid]="!semRepetidos()">Sem caracteres repetidos</li>
+  </ul>
+
+  <p class="aviso-validacao">
+    * A validação será confirmada ao clicar no botão “Validar senha”.
+  </p>
+
+  <button
+    id="submit-btn"
+    [disabled]="!senha"
+    (click)="validarSenha()"
+    class="btn-validar"
+    aria-label="Botão para validar a senha"
+  >
+    Validar senha
+  </button>
+
+  <div
+    class="mensagens-backend"
+    *ngIf="mensagens.length > 0"
+    [ngClass]="{ 'mensagem-sucesso': validou, 'mensagem-erro': !validou }"
+  >
+    <p *ngFor="let msg of mensagens" class="mensagem-backend">{{ msg }}</p>
+  </div>
+</main>

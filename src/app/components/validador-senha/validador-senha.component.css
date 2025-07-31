@@ -1,0 +1,341 @@
+/* ---------------- BODY ---------------- */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FF6200; /* cor institucional Itaú */
+  font-family: 'Segoe UI', sans-serif;
+  color: #5f5f5f;
+  min-height: 100vh;
+  position: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ---------------- CABEÇALHO ITAÚ ---------------- */
+.itau-header {
+  background-color: white;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-itau {
+  height: 50px;
+}
+
+.cabecalho-acessar-btn {
+  margin-left: auto;
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cabecalho-acessar-btn:hover {
+  background-color: #e65c00;
+}
+
+/* ---------------- TELA INICIAL ---------------- */
+.tela-inicial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  background-color: #ff6200;
+  padding: 40px 20px;
+}
+
+.conteudo-inicial {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px 60px;
+  gap: 32px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  flex-wrap: nowrap;
+}
+
+/* Ajustes na imagem */
+.imagem-explicativa {
+  max-width: 400px; /* Limita o tamanho máximo da imagem */
+  height: auto;
+  flex-shrink: 0;
+}
+
+.texto-explicativo {
+  flex: 1;
+  max-width: 500px;
+  text-align: justify;
+}
+
+.texto-explicativo h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+/* Para o texto "Isso protege você contra fraudes" */
+.alerta-fraude {
+  color: red;
+  font-weight: 600;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ---------------- CONTAINER VALIDAÇÃO ---------------- */
+.password-validator-container {
+  max-width: 420px;
+  width: 100%;
+  margin: 120px auto 100px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 100;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ---------------- ANIMAÇÃO ---------------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- TÍTULO ---------------- */
+.titulo-validador {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  color: #5f5f5f;
+  letter-spacing: 0.3px;
+  margin-bottom: 24px;
+}
+
+/* ---------------- INPUTS ---------------- */
+.input-group {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 14px 100px 14px 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus {
+  border-color: #f26419;
+}
+
+input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* ---------------- ÍCONE VISIBILIDADE ---------------- */
+.show-password-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.show-password-toggle:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.show-password-toggle i {
+  font-size: 22px;
+  color: #ccc;
+}
+
+/* ---------------- REGRAS DE SENHA ---------------- */
+.password-requirements {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.password-requirements li {
+  font-size: 14px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.password-requirements li::before {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.password-requirements li.valid {
+  color: #00c853;
+}
+
+.password-requirements li.valid::before {
+  content: '✓';
+  color: #00c853;
+}
+
+.password-requirements li.invalid {
+  color: #d50000;
+}
+
+.password-requirements li.invalid::before {
+  content: '✗';
+  color: #d50000;
+}
+
+/* ---------------- BOTÃO VALIDAR ---------------- */
+button#submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button#submit-btn:enabled {
+  background: linear-gradient(to right, #f26419, #ffa65c);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+button#submit-btn:enabled:hover {
+  filter: brightness(1.05);
+}
+
+/* ---------------- MENSAGENS ---------------- */
+.mensagens-validacao li.ok {
+  color: #00c853;
+  font-weight: bold;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.mensagens-validacao li.erro {
+  color: red;
+  text-align: left;
+  animation: fadeIn 0.3s ease;
+}
+
+.aviso-validacao {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 12px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ---------------- MENSAGENS DO BACKEND ---------------- */
+.mensagens-backend {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.mensagem-backend {
+  font-size: 14px;
+  color: #444;
+  margin: 4px 0;
+  font-style: italic;
+}
+
+.mensagem-backend::before {
+  content: "• ";
+  color: #999;
+}
+
+.mensagem-sucesso .mensagem-backend {
+  color: green;
+  font-weight: bold;
+}
+
+.mensagem-erro .mensagem-backend {
+  color: red;
+}
+
+/* ---------------- RESPONSIVO ---------------- */
+@media (max-width: 768px) {
+  .conteudo-inicial {
+    flex-direction: column;
+    padding: 24px;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+
+  .imagem-explicativa {
+    width: 200px;
+  }
+
+  .texto-explicativo {
+    max-width: 100%;
+  }
+
+  .texto-explicativo h2 {
+    text-align: center;
+  }
+
+  .password-validator-container {
+    margin: 80px 16px;
+    padding: 24px 16px;
+  }
+
+  .cabecalho-acessar-btn {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  input[type="password"],
+  input[type="text"] {
+    padding: 14px 60px 14px 12px;
+  }
+
+  .show-password-toggle i {
+    font-size: 18px;
+  }
+}
