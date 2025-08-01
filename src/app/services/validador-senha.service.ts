@@ -20,13 +20,7 @@ export class SenhaService {
           'Accept': 'application/json'
         });
 
-        const body = { senha };
-        const url = `${environment.apiUrl}/api/validar`;
-
-        console.log('📤 Enviando para /api/validar:', body);
-        console.log('📡 Headers:', headers);
-
-        return this.http.post(url, body, { headers });
+        return this.http.post(`${environment.apiUrl}/api/validar`, { senha }, { headers });
       })
     );
   }
