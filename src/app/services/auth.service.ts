@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +20,12 @@ export class AuthService {
       'Accept': 'application/json'
     });
 
-    return this.http.post<any>(
-      `${environment.apiUrl}/oauth/token`,
-      body.toString(),
-      { headers }
-    ).pipe(
-      map(response => {
-        console.log('Resposta do /oauth/token:', response);
-        return response.access_token;
-      })
-    );
+    return this.http.post<any>(`${environment.apiUrl}/oauth/token`, body.toString(), { headers })
+      .pipe(
+        map(response => {
+          console.log('🔐 Token gerado:', response.access_token);
+          return response.access_token;
+        })
+      );
   }
 }
