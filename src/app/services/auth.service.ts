@@ -1,24 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   constructor(private http: HttpClient) {}
 
   getToken(): Observable<string> {
-    const body = new HttpParams()
-      .set('grant_type', 'client_credentials')
-      .set('client_id', 'frontend-itau') // você pode tornar isso seguro depois no backend
-      .set('client_secret', 'segredo123'); // idealmente não deveria estar no frontend
+    const body = new URLSearchParams();
+    body.set('grant_type', 'client_credentials');
+    body.set('client_id', 'frontend-itau');
+    body.set('client_secret', 'segredo123');
 
-    return this.http.post<any>(`${environment.apiUrl}/oauth/token`, body, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    }).pipe(
-      map(response => response.access_token)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<any>(`${environment.apiUrl}/oauth/token`, body.toString(), { headers }).pipe(
+      map(res => res.access_token) // agora retorna só o token
     );
   }
 }

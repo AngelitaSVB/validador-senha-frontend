@@ -5,7 +5,7 @@ Projeto frontend desenvolvido em Angular 17 com Angular Material, que consome um
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 - Campo para digitar senha
 - Botão para exibir/ocultar senha
@@ -16,7 +16,7 @@ Projeto frontend desenvolvido em Angular 17 com Angular Material, que consome um
 
 ---
 
-## 🧪 Testes
+## Testes
 
 O projeto possui testes unitários com Karma e Jasmine:
 
@@ -29,7 +29,7 @@ ng test
 
 ---
 
-## 🧰 Tecnologias e ferramentas
+## Tecnologias e ferramentas
 
 - Angular 17 (Standalone Components)
 - Angular Material
@@ -112,8 +112,8 @@ src/
 
 ---
 
-## 👤 Autora
+## Autora
 
 **Angelita Vilas Boas**  
-🌐 Desenvolvedora Front-end | Estudante de Ciência de Dados  
-💼 Projeto realizado como desafio técnico
+Desenvolvedora Front-end | Estudante de Ciência de Dados  
+Projeto realizado como desafio técnico
