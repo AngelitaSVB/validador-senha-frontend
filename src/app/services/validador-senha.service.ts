@@ -16,7 +16,8 @@ export class SenhaService {
       switchMap(token => {
         const headers = new HttpHeaders({
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         });
 
         return this.http.post(`${environment.apiUrl}/api/validar`, { senha }, { headers });
